@@ -5,14 +5,13 @@ package cn.chinuy.optimus.abstracts {
 	import cn.chinuy.optimus.internals.ServiceEvent;
 	
 	import flash.events.Event;
-	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	import flash.utils.Dictionary;
 	
 	/**
 	 * @author chin
 	 */
-	public class Plugin extends EventDispatcher implements IPlugin {
+	public class Plugin implements IPlugin {
 		
 		private var _name : String;
 		private var _facade : IFacade;
@@ -42,15 +41,19 @@ package cn.chinuy.optimus.abstracts {
 			onDestroy();
 		}
 		
-		override public function addEventListener( type : String, listener : Function, useCapture : Boolean = false, priority : int = 0, useWeakReference : Boolean = false ) : void {
+		public function willTrigger( type : String ) : Boolean {
+			return hasEventListener( type );
+		}
+		
+		public function addEventListener( type : String, listener : Function, useCapture : Boolean = false, priority : int = 0, useWeakReference : Boolean = false ) : void {
 			attachEventListener( facade, type, listener );
 		}
 		
-		override public function removeEventListener( type : String, listener : Function, useCapture : Boolean = false ) : void {
+		public function removeEventListener( type : String, listener : Function, useCapture : Boolean = false ) : void {
 			unattachEventListener( facade, type );
 		}
 		
-		override public function hasEventListener( type : String ) : Boolean {
+		public function hasEventListener( type : String ) : Boolean {
 			var eventMap : Object = listenerMap[ facade ];
 			if( eventMap != null ) {
 				return eventMap[ type ] != null;
@@ -58,7 +61,7 @@ package cn.chinuy.optimus.abstracts {
 			return false;
 		}
 		
-		override public function dispatchEvent( event : Event ) : Boolean {
+		public function dispatchEvent( event : Event ) : Boolean {
 			return facade.dispatchEvent( event );
 		}
 		

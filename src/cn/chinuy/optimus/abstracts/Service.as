@@ -21,11 +21,11 @@ package cn.chinuy.optimus.abstracts {
 			return _name;
 		}
 		
-		public function get workflow() : IWorkflow {
+		protected function get workflow() : IWorkflow {
 			return _flow;
 		}
 		
-		public function get facade() : IFacade {
+		protected function get facade() : IFacade {
 			return _facade;
 		}
 		

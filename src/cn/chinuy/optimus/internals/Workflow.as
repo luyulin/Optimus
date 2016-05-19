@@ -4,10 +4,12 @@ package cn.chinuy.optimus.internals {
 	import cn.chinuy.optimus.interfaces.IService;
 	import cn.chinuy.optimus.interfaces.IWorkflow;
 	
+	import flash.events.EventDispatcher;
+	
 	/**
 	 * @author chin
 	 */
-	public class Workflow implements IWorkflow {
+	public class Workflow extends EventDispatcher implements IWorkflow {
 		
 		private var _facade : IFacade;
 		private var _name : String;
@@ -16,6 +18,7 @@ package cn.chinuy.optimus.internals {
 		private var serviceMap : Object = {};
 		
 		public function Workflow( name : String ) {
+			super();
 			_name = name;
 		}
 		

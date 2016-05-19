@@ -1,9 +1,10 @@
 package cn.chinuy.optimus.interfaces {
+	import flash.events.IEventDispatcher;
 	
 	/**
 	 * @author chin
 	 */
-	public interface IWorkflow {
+	public interface IWorkflow extends IEventDispatcher {
 		
 		function get name() : String;
 		function get currentProcessor() : IProcessor;

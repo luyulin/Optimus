@@ -35,7 +35,7 @@ package cn.chinuy.optimus.abstracts {
 			onInit();
 		}
 		
-		final public function remove() : void {
+		final public function onRemove() : void {
 			onDestroy();
 		}
 		

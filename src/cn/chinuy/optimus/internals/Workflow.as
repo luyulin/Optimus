@@ -41,43 +41,31 @@ package cn.chinuy.optimus.internals {
 			}
 		}
 		
-		public function registerService( service : IService ) : void {
+		public function registerService( service : IService ) : IService {
 			var serviceName : String = service.name;
 			removeService( serviceName );
 			serviceMap[ serviceName ] = service;
 			service.onRegister( _facade, this );
 			_facade.dispatchEvent( new ServiceEvent( ServiceEvent.Registered + serviceName, serviceName ));
+			return service;
 		}
 		
-		public function registerMultitonService( serviceName : String, serviceClass : Class ) : void {
-			removeService( serviceName );
-			serviceMap[ serviceName ] = serviceClass;
-			_facade.dispatchEvent( new ServiceEvent( ServiceEvent.Registered + serviceName, serviceName ));
-		}
-		
-		public function removeService( serviceName : String ) : void {
-			if( hasService( serviceName )) {
+		public function removeService( serviceName : String ) : IService {
+			var service : IService = service( serviceName );
+			if( service ) {
+				service.onRemove();
 				delete serviceMap[ serviceName ];
 				_facade.dispatchEvent( new ServiceEvent( ServiceEvent.Removed + serviceName, serviceName ));
 			}
+			return service;
 		}
 		
 		public function hasService( serviceName : String ) : Boolean {
-			return serviceMap[ serviceName ] != null;
+			return service( serviceName ) != null;
 		}
 		
 		public function service( serviceName : String ) : IService {
-			var serviceSource : * = serviceMap[ serviceName ];
-			if( serviceSource != null ) {
-				var service : IService = serviceSource;
-				if( service == null ) {
-					var ServiceClass : Class = serviceSource;
-					service = new ServiceClass();
-					service.onRegister( _facade, this );
-				}
-				return service;
-			}
-			return null;
+			return serviceMap[ serviceName ];
 		}
 		
 		public function setProcessor( processor : IProcessor ) : void {

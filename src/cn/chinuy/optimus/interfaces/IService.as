@@ -7,6 +7,6 @@ package cn.chinuy.optimus.interfaces {
 		
 		function get name() : String;
 		function onRegister( facade : IFacade, flow : IWorkflow ) : void;
-		function remove() : void;
+		function onRemove() : void;
 	}
 }

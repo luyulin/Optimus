@@ -14,9 +14,8 @@ package cn.chinuy.optimus.interfaces {
 		function setProcessor( processor : IProcessor ) : void;
 		function endProcessor() : void;
 		
-		function registerService( service : IService ) : void;
-		function registerMultitonService( serviceName : String, serviceClass : Class ) : void;
-		function removeService( serviceName : String ) : void;
+		function registerService( service : IService ) : IService;
+		function removeService( serviceName : String ) : IService;
 		function hasService( serviceName : String ) : Boolean;
 		function service( serviceName : String ) : IService;
 	}

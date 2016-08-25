@@ -14,7 +14,7 @@ package cn.chinuy.optimus.internals {
 		public function Controller( facade : IFacade ) {
 			this.facade = facade;
 		}
-		
+		 
 		public function hasWorkflow( workflowName : String ) : Boolean {
 			return workflow( workflowName ) != null;
 		}
